@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 // DEFINIR LOS ESQUEMAS
 const productModel = require('./models/products');
+
 sslopt = {}
  
 if (process.env.NODE_ENV !== 'development') {
