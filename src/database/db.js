@@ -2,6 +2,10 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 // DEFINIR LOS ESQUEMAS
 const productModel = require('./models/products');
+const track_inventoryModel = require('./models/track_inventory');
+const carriersModel = require('./models/carriers');
+const guidesModel = require('./models/guides');
+//const inventoryModel = require('./models/inventory');
 
 sslopt = {}
  
@@ -13,7 +17,7 @@ if (process.env.NODE_ENV !== 'development') {
         }
     }
 }
-
+//Tienen que crear un env con los datos de sus dbs
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
     dialect: 'postgres',
@@ -38,7 +42,12 @@ sequelize.authenticate().then(() => {
     console.log('Error while trying connecting to Database')
 })
 
+//Se crean las tablas
 const Products = productModel(sequelize, DataTypes);
+const Carriers = carriersModel(sequelize, DataTypes);
+const Guides = guidesModel(sequelize, DataTypes);
+const Track_inventory = track_inventoryModel(sequelize, DataTypes); 
+//const Inventory = inventoryModel(sequelize, DataTypes);
 
 
 sequelize.sync({alter: true}).then(() => {
@@ -49,5 +58,9 @@ sequelize.sync({alter: true}).then(() => {
 });
 
 module.exports = {
-    Products
+    Products,
+    Carriers,
+    Guides,
+    Track_inventory,
+    //Inventory
 }
