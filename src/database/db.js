@@ -53,6 +53,7 @@ const Track_inventory = track_inventoryModel(sequelize, DataTypes);
 const Inventory = inventoryModel(sequelize, DataTypes);
 
 //Asociaciones Equipo 4
+//Inventory no nos toco pero igual le hacemos referencia
 Guides.belongsToMany(Inventory, {
     through: Track_inventory,
     foreignKey: 'guide_id',
