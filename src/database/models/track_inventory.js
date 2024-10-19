@@ -13,21 +13,19 @@ module.exports = (sequelize, type) => {
         guide_pdf: {
             type: DataTypes.TEXT
         },
-        inventory_id: {
-            type: DataTypes.BIGINT,
-            references: {
-                model: 'inventory',
-                key: 'id'
-            }
-        },
         guide_id: {
             type: type.BIGINT,
             references: {
                 model: 'guides',
                 key: 'id'
             },
-            //onUpdate: 'Cascade',
-           // onDelete: 'SET NULL'
+        },
+        inventory_id: {
+            type: DataTypes.BIGINT,
+            references: {
+                model: 'inventory',
+                key: 'id'
+            }
         }
     }, { timestamps : false })
 }

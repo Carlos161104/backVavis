@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, type) => {
     return sequelize.define('inventory', {
@@ -7,27 +7,32 @@ module.exports = (sequelize, type) => {
             autoIncrement: true,
             primaryKey: true
         },
-        quantity: {
-            type: DataTypes.DECIMAL(6,2)
+        product_name: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        sold_quantity: {
-            type: DataTypes.DECIMAL(6,2)
+        product_description: {
+            type: DataTypes.TEXT,
+            allowNull: true
         },
-        inventory_id: {
-            type: DataTypes.BIGINT,
-            references: {
-                model: 'inventory',
-                key: 'id'
-            }
+        quantity_available: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
-        guide_id: {
-            type: type.BIGINT,
-            references: {
-                model: 'guides',
-                key: 'id'
-            },
-            //onUpdate: 'Cascade',
-           // onDelete: 'SET NULL'
+        price: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
+        },
+        sku: {
+            type: DataTypes.STRING, // Código de inventario (Stock Keeping Unit)
+            allowNull: true,
+            unique: true
+        },
+        date_added: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         }
-    }, { timestamps : false })
-}
+    }, { 
+        timestamps: false // Si no deseas que Sequelize agregue automáticamente las columnas createdAt y updatedAt
+    });
+};

@@ -22,8 +22,6 @@ module.exports = (sequelize, type) => {
                 model: 'carriers',
                 key: 'id'
             },
-            onUpdate: 'Cascade',
-            onDelete: 'SET NULL'
         }
     }, { timestamps : false })
 }

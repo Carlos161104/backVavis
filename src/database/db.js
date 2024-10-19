@@ -5,7 +5,8 @@ const productModel = require('./models/products');
 const track_inventoryModel = require('./models/track_inventory');
 const carriersModel = require('./models/carriers');
 const guidesModel = require('./models/guides');
-//const inventoryModel = require('./models/inventory');
+const inventoryModel = require('./models/inventory');
+
 
 sslopt = {}
  
@@ -17,7 +18,7 @@ if (process.env.NODE_ENV !== 'development') {
         }
     }
 }
-//Tienen que crear un env con los datos de sus dbs
+
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
     dialect: 'postgres',
@@ -42,13 +43,33 @@ sequelize.authenticate().then(() => {
     console.log('Error while trying connecting to Database')
 })
 
-//Se crean las tablas
+
 const Products = productModel(sequelize, DataTypes);
+
+//Esquemas equipo 4
 const Carriers = carriersModel(sequelize, DataTypes);
 const Guides = guidesModel(sequelize, DataTypes);
 const Track_inventory = track_inventoryModel(sequelize, DataTypes); 
-//const Inventory = inventoryModel(sequelize, DataTypes);
+const Inventory = inventoryModel(sequelize, DataTypes);
 
+//Asociaciones Equipo 4
+Guides.belongsToMany(Inventory, {
+    through: Track_inventory,
+    foreignKey: 'guide_id',
+    otherKey: 'inventory_id'
+});
+
+Inventory.belongsToMany(Guides, {
+    through: Track_inventory,
+    foreignKey: 'inventory_id',
+    otherKey: 'guide_id'
+})
+
+Guides.belongsTo(Carriers, {
+    foreignKey: 'couriers',
+    targetKey: 'id'
+});
+/////////////////////////////
 
 sequelize.sync({alter: true}).then(() => {
     console.log('Database && tables was synchronized!')
@@ -62,5 +83,5 @@ module.exports = {
     Carriers,
     Guides,
     Track_inventory,
-    //Inventory
+    Inventory,
 }
