@@ -10,6 +10,7 @@ const ordersModel = require("./models/orders");
 const addressesModel = require("./models/addresses");
 const payment_methodsModel = require("./models/payment_methods");
 const sales_funnelModel = require("./models/sales_funnel");
+const sellsModel = require("./models/sells");
 
 // const inventoryModel = require('./models/inventory');
 
@@ -59,6 +60,7 @@ const Orders = ordersModel(sequelize, DataTypes);
 const Addresses = addressesModel(sequelize, DataTypes);
 const PaymentMethods = payment_methodsModel(sequelize, DataTypes);
 const SalesFunnel = sales_funnelModel(sequelize, DataTypes);
+const Sells = sellsModel(sequelize, DataTypes);
 
 const Products = productModel(sequelize, DataTypes);
 
@@ -103,6 +105,7 @@ module.exports = {
   Addresses,
   PaymentMethods,
   SalesFunnel,
+  Sells,
   Products,
   Carriers,
   Guides,
