@@ -22,10 +22,10 @@ module.exports = (sequelize, type) => {
         },
         inventory_id: {
             type: DataTypes.BIGINT,
-            references: {
-                model: 'inventory',
-                key: 'id'
-            }
+            // references: {
+            //     model: 'inventory',
+            //     key: 'id'
+            // }
         }
     }, { timestamps : false })
 }

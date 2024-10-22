@@ -5,7 +5,8 @@ const productModel = require('./models/products');
 const track_inventoryModel = require('./models/track_inventory');
 const carriersModel = require('./models/carriers');
 const guidesModel = require('./models/guides');
-const inventoryModel = require('./models/inventory');
+const ordersModel = require('./models/orders');
+// const inventoryModel = require('./models/inventory');
 
 
 sslopt = {}
@@ -34,14 +35,16 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     logging: false
 })
 
-
-
 sequelize.authenticate().then(() => {
     console.log('Database Connected');
 }) .catch((error) => {
     console.log(error)
     console.log('Error while trying connecting to Database')
 })
+
+// Schemas Equipo 1
+const Orders = ordersModel(sequelize, DataTypes);
+
 
 
 const Products = productModel(sequelize, DataTypes);
@@ -50,21 +53,21 @@ const Products = productModel(sequelize, DataTypes);
 const Carriers = carriersModel(sequelize, DataTypes);
 const Guides = guidesModel(sequelize, DataTypes);
 const Track_inventory = track_inventoryModel(sequelize, DataTypes); 
-const Inventory = inventoryModel(sequelize, DataTypes);
+// const Inventory = inventoryModel(sequelize, DataTypes);
 
 //Asociaciones Equipo 4
 //Inventory no nos toco pero igual le hacemos referencia
-Guides.belongsToMany(Inventory, {
-    through: Track_inventory,
-    foreignKey: 'guide_id',
-    otherKey: 'inventory_id'
-});
+// Guides.belongsToMany(Inventory, {
+//     through: Track_inventory,
+//     foreignKey: 'guide_id',
+//     otherKey: 'inventory_id'
+// });
 
-Inventory.belongsToMany(Guides, {
-    through: Track_inventory,
-    foreignKey: 'inventory_id',
-    otherKey: 'guide_id'
-})
+// Inventory.belongsToMany(Guides, {
+//     through: Track_inventory,
+//     foreignKey: 'inventory_id',
+//     otherKey: 'guide_id'
+// })
 
 Guides.belongsTo(Carriers, {
     foreignKey: 'couriers',
@@ -80,9 +83,10 @@ sequelize.sync({alter: true}).then(() => {
 });
 
 module.exports = {
+    Orders,
     Products,
     Carriers,
     Guides,
     Track_inventory,
-    Inventory,
+    // Inventory,
 }
