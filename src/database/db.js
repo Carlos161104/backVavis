@@ -1,58 +1,67 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 
 // DEFINIR LOS ESQUEMAS
-const productModel = require('./models/products');
-const track_inventoryModel = require('./models/track_inventory');
-const carriersModel = require('./models/carriers');
-const guidesModel = require('./models/guides');
-const ordersModel = require('./models/orders');
+const productModel = require("./models/products");
+const track_inventoryModel = require("./models/track_inventory");
+const carriersModel = require("./models/carriers");
+const guidesModel = require("./models/guides");
+// ------------------------------
+const ordersModel = require("./models/orders");
+const addressesModel = require("./models/addresses");
+
 // const inventoryModel = require('./models/inventory');
 
+sslopt = {};
 
-sslopt = {}
- 
-if (process.env.NODE_ENV !== 'development') {
-    sslopt = {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-    }
+if (process.env.NODE_ENV !== "development") {
+  sslopt = {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  };
 }
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
     host: process.env.DB_HOST,
-    dialect: 'postgres',
-    protocol: 'postgres',
+    dialect: "postgres",
+    protocol: "postgres",
     port: process.env.DB_PORT,
     dialectOptions: sslopt,
     pool: {
       max: 10,
       min: 0,
       acquire: 30000,
-      idle: 10000
+      idle: 10000,
     },
-    logging: false
-})
+    logging: false,
+  }
+);
 
-sequelize.authenticate().then(() => {
-    console.log('Database Connected');
-}) .catch((error) => {
-    console.log(error)
-    console.log('Error while trying connecting to Database')
-})
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Database Connected");
+  })
+  .catch((error) => {
+    console.log(error);
+    console.log("Error while trying connecting to Database");
+  });
 
 // Schemas Equipo 1
 const Orders = ordersModel(sequelize, DataTypes);
-
-
+const Addresses = addressesModel(sequelize, DataTypes);
 
 const Products = productModel(sequelize, DataTypes);
 
 //Esquemas equipo 4
 const Carriers = carriersModel(sequelize, DataTypes);
 const Guides = guidesModel(sequelize, DataTypes);
-const Track_inventory = track_inventoryModel(sequelize, DataTypes); 
+const Track_inventory = track_inventoryModel(sequelize, DataTypes);
 // const Inventory = inventoryModel(sequelize, DataTypes);
 
 //Asociaciones Equipo 4
@@ -70,23 +79,27 @@ const Track_inventory = track_inventoryModel(sequelize, DataTypes);
 // })
 
 Guides.belongsTo(Carriers, {
-    foreignKey: 'couriers',
-    targetKey: 'id'
+  foreignKey: "couriers",
+  targetKey: "id",
 });
 /////////////////////////////
 
-sequelize.sync({alter: true}).then(() => {
-    console.log('Database && tables was synchronized!')
-}).catch((e) => {
-    console.log(e)
-    console.log('Error while trying connecting to Database')
-});
+sequelize
+  .sync({ alter: true })
+  .then(() => {
+    console.log("Database && tables was synchronized!");
+  })
+  .catch((e) => {
+    console.log(e);
+    console.log("Error while trying connecting to Database");
+  });
 
 module.exports = {
-    Orders,
-    Products,
-    Carriers,
-    Guides,
-    Track_inventory,
-    // Inventory,
-}
+  Orders,
+  Addresses,
+  Products,
+  Carriers,
+  Guides,
+  Track_inventory,
+  // Inventory,
+};

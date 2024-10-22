@@ -7,7 +7,6 @@ const port = process.env.PORT;
 
 const ContactsRoutes = require("./src/routes/contact.routes");
 const ProductsRoutes = require("./src/routes/product.routes");
-const OrdersRoutes = require("./src/routes/orders.routes");
 
 var corsOptions = {
   origin: "*",
@@ -20,7 +19,6 @@ app.use(cors(corsOptions));
 // RUTA DE CONTACTOS
 app.use("/contactos", ContactsRoutes);
 app.use("/products", ProductsRoutes);
-app.use("/orders", OrdersRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${process.env.PORT}`);
