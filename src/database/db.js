@@ -6,11 +6,16 @@ const track_inventoryModel = require("./models/track_inventory");
 const carriersModel = require("./models/carriers");
 const guidesModel = require("./models/guides");
 // ------------------------------
+const clientsModel = require("./models/clients"); 
+const usersModel = require("./models/users"); 
+const quotationsModel = require("./models/quotations"); 
+// ------------------------------
 const ordersModel = require("./models/orders");
 const addressesModel = require("./models/addresses");
 const payment_methodsModel = require("./models/payment_methods");
 const sales_funnelModel = require("./models/sales_funnel");
 const sellsModel = require("./models/sells");
+
 
 // const inventoryModel = require('./models/inventory');
 
@@ -63,6 +68,11 @@ const SalesFunnel = sales_funnelModel(sequelize, DataTypes);
 const Sells = sellsModel(sequelize, DataTypes);
 
 const Products = productModel(sequelize, DataTypes);
+
+// Schemas Equipo 2
+const Clients = clientsModel(sequelize, DataTypes);
+const Users = usersModel(sequelize, DataTypes);
+const Quotations = quotationsModel(sequelize, DataTypes);
 
 //Esquemas equipo 4
 const Carriers = carriersModel(sequelize, DataTypes);
