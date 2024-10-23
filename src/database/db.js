@@ -100,6 +100,12 @@ Guides.belongsTo(Carriers, {
 });
 /////////////////////////////
 
+Products.belongsToMany(Quotations, {
+	through: 'quotations_product',
+	foreignKey: 'product_id',
+	otherKey: 'quotation_id'
+});
+
 sequelize
   .sync({ alter: true })
   .then(() => {
@@ -121,4 +127,6 @@ module.exports = {
   Guides,
   Track_inventory,
   // Inventory,
+  Clients,
+  Users,
 };

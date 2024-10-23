@@ -1,22 +1,20 @@
-const { DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, type) => {
   return sequelize.define('clients', {
     id: {
-      type: DataTypes.BIGINT,
+      type: type.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(50), 
+      type: type.STRING(50), 
       allowNull: false,
     },
     last_name: {
-      type: DataTypes.STRING(50), 
+      type: type.STRING(50), 
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(50),
+      type: type.STRING(50),
       allowNull: false,
       unique: true, 
       validate: {
@@ -24,20 +22,20 @@ module.exports = (sequelize) => {
       },
     },
     phone: {
-      type: DataTypes.STRING(10), 
+      type: type.STRING(10), 
       allowNull: true,
       unique: true, 
     },
     company: {
-      type: DataTypes.STRING(50), 
+      type: type.STRING(50), 
       allowNull: true,
     },
     channel_id: {
-      type: DataTypes.STRING(50),
+      type: type.STRING(50),
       allowNull: true,
     },
     sales_funnel_id: {
-      type: DataTypes.INTEGER, 
+      type: type.INTEGER, 
       references: {
         model: 'sales_funnels',
         key: 'id',

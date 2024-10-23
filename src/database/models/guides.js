@@ -1,20 +1,18 @@
-const { DataTypes } = require("sequelize")
-
 module.exports = (sequelize, type) => {
     return sequelize.define('guides', {
         id: {
-            type: DataTypes.BIGINT,
+            type: type.BIGINT,
             autoIncrement: true,
             primaryKey: true
         },
         cost: {
-            type: DataTypes.DOUBLE
+            type: type.DOUBLE
         },
         guide_pdf: {
-            type: DataTypes.TEXT
+            type: type.TEXT
         },
         date_created: {
-            type: DataTypes.DATE
+            type: type.DATE
         },
         couriers: {
             type: type.BIGINT,

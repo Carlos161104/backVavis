@@ -1,29 +1,27 @@
-const { DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, type) => {
   return sequelize.define('users', {
     id: {
-      type: DataTypes.BIGINT,
+      type: type.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(50),
+      type: type.STRING(50),
       allowNull: false,
     },
     last_name: {
-      type: DataTypes.STRING(50),
+      type: type.STRING(50),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(30),
+      type: type.STRING(30),
       allowNull: false,
       validate: {
         isEmail: true,
       },
     },
     rol: {
-      type: DataTypes.STRING(30),
+      type: type.STRING(30),
       allowNull: false,
       comment: 'Rol que tiene un usuario: Vendedor/cotizador/Contabilidad',
     },

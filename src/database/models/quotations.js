@@ -1,33 +1,31 @@
-const { DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, type) => {
   return sequelize.define('quotations', {
     id: {
-      type: DataTypes.BIGINT,
+      type: type.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
     total: {
-      type: DataTypes.DOUBLE,
+      type: type.DOUBLE,
       allowNull: false,
     },
     valid_time: {
-      type: DataTypes.STRING(20),
+      type: type.STRING(20),
       allowNull: false,
     },
     pdf_url: {
-      type: DataTypes.STRING(255), 
+      type: type.STRING(255), 
       allowNull: true,
     },
     payment_method_id: {
-      type: DataTypes.INTEGER,
+      type: type.INTEGER,
       references: {
         model: 'payment_methods',
         key: 'id',
       },
     },
     client_id: {
-      type: DataTypes.INTEGER,
+      type: type.INTEGER,
       references: {
         model: 'clients',
         key: 'id',
