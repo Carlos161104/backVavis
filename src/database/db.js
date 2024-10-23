@@ -106,6 +106,51 @@ Products.belongsToMany(Quotations, {
 	otherKey: 'quotation_id'
 });
 
+
+// Relaciones Orders y Sells
+Orders.hasMany(Sells, {
+  foreignKey: "order_id",
+  sourceKey: "id",
+});
+
+Sells.belongsTo(Orders, {
+  foreignKey: "order_id",
+  targetKey: "id",
+});
+
+Orders.belongsTo(PaymentMethods, {
+  foreignKey: "payment_method_id", // Cambia el nombre del foreignKey
+  targetKey: "id",
+});
+
+PaymentMethods.hasMany(Orders, {
+  foreignKey: "payment_method_id", // Asegúrate de que coincida con el foreignKey anterior
+  sourceKey: "id",
+})
+
+// Define the relationship between Order and SalesFunnel
+Orders.belongsTo(SalesFunnel, {
+  foreignKey: "sales_funnel_id",
+  targetKey: "id",
+});
+
+SalesFunnel.hasMany(Orders, {
+  foreignKey: "sales_funnel_id",
+  sourceKey: "id",
+});
+
+// Define the relationship between Orders and Address
+Orders.belongsTo(Addresses, {
+  foreignKey: "address_id",
+  targetKey: "id",
+});
+
+Addresses.hasMany(Orders, {
+  foreignKey: "address_id",
+  sourceKey: "id",
+});
+
+
 sequelize
   .sync({ alter: true })
   .then(() => {
