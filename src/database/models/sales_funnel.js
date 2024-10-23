@@ -1,16 +1,14 @@
-const { DataTypes } = require("sequelize");
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, type) => {
   return sequelize.define(
     "sales_funnel",
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: type.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING(50),
+        type: type.STRING(50),
         allowNull: false,
       },
     },

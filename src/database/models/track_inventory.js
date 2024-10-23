@@ -1,17 +1,15 @@
-const { DataTypes } = require("sequelize")
-
 module.exports = (sequelize, type) => {
     return sequelize.define('track_inventory', {
         id: {
-            type: DataTypes.BIGINT,
+            type: type.BIGINT,
             autoIncrement: true,
             primaryKey: true
         },
         quantity: {
-            type: DataTypes.DOUBLE
+            type: type.DOUBLE
         },
         guide_pdf: {
-            type: DataTypes.TEXT
+            type: type.TEXT
         },
         guide_id: {
             type: type.BIGINT,
@@ -21,7 +19,7 @@ module.exports = (sequelize, type) => {
             },
         },
         inventory_id: {
-            type: DataTypes.BIGINT,
+            type: type.BIGINT,
             // references: {
             //     model: 'inventory',
             //     key: 'id'
