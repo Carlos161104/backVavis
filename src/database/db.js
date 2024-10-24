@@ -1,32 +1,26 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-// DEFINIR LOS ESQUEMAS
+// Schema definitions
 const productModel = require("./models/products");
 const track_inventoryModel = require("./models/track_inventory");
 const carriersModel = require("./models/carriers");
 const guidesModel = require("./models/guides");
-// ------------------------------
-const clientsModel = require("./models/clients"); 
-const usersModel = require("./models/users"); 
-const quotationsModel = require("./models/quotations"); 
-// ------------------------------
+const clientsModel = require("./models/clients");
+const usersModel = require("./models/users");
+const quotationsModel = require("./models/quotations");
 const ordersModel = require("./models/orders");
 const addressesModel = require("./models/addresses");
 const payment_methodsModel = require("./models/payment_methods");
 const sales_funnelModel = require("./models/sales_funnel");
 const sellsModel = require("./models/sells");
-// -------------------------------  Equipo 3
 const categoriesModel = require("./models/categories");
 const packagesModel = require("./models/packages");
 const suppliersModel = require("./models/suppliers");
-const statusesModel = require("./models/status")
+const statusesModel = require("./models/status");
 const binLocationsModel = require("./models/bin_location");
-
-
-
 const inventoryModel = require('./models/inventory');
 
-sslopt = {};
+let sslopt = {};
 
 if (process.env.NODE_ENV !== "development") {
   sslopt = {
@@ -73,7 +67,6 @@ const Addresses = addressesModel(sequelize, DataTypes);
 const PaymentMethods = payment_methodsModel(sequelize, DataTypes);
 const SalesFunnel = sales_funnelModel(sequelize, DataTypes);
 const Sells = sellsModel(sequelize, DataTypes);
-
 const Products = productModel(sequelize, DataTypes);
 
 // Schemas Equipo 2
@@ -81,40 +74,44 @@ const Clients = clientsModel(sequelize, DataTypes);
 const Users = usersModel(sequelize, DataTypes);
 const Quotations = quotationsModel(sequelize, DataTypes);
 
-//Esquemas equipo 4
+// Schemas Equipo 3
+const Categories = categoriesModel(sequelize, DataTypes);
+const Packages = packagesModel(sequelize, DataTypes);
+const Suppliers = suppliersModel(sequelize, DataTypes);
+const Statuses = statusesModel(sequelize, DataTypes);
+const BinLocations = binLocationsModel(sequelize, DataTypes);
+
+// Schemas Equipo 4
 const Carriers = carriersModel(sequelize, DataTypes);
 const Guides = guidesModel(sequelize, DataTypes);
 const Track_inventory = track_inventoryModel(sequelize, DataTypes);
 const Inventory = inventoryModel(sequelize, DataTypes);
 
-//Asociaciones Equipo 4
-//Inventory no nos toco pero igual le hacemos referencia
+// Associations Equipo 4
 Guides.belongsToMany(Inventory, {
-    through: Track_inventory,
-    foreignKey: 'guide_id',
-    otherKey: 'inventory_id'
+  through: Track_inventory,
+  foreignKey: 'guide_id',
+  otherKey: 'inventory_id'
 });
 
 Inventory.belongsToMany(Guides, {
-    through: Track_inventory,
-    foreignKey: 'inventory_id',
-    otherKey: 'guide_id'
-})
+  through: Track_inventory,
+  foreignKey: 'inventory_id',
+  otherKey: 'guide_id'
+});
 
 Guides.belongsTo(Carriers, {
   foreignKey: "couriers",
   targetKey: "id",
 });
-/////////////////////////////
 
+// Associations Equipo 1
 Products.belongsToMany(Quotations, {
-	through: 'quotations_product',
-	foreignKey: 'product_id',
-	otherKey: 'quotation_id'
+  through: 'quotations_product',
+  foreignKey: 'product_id',
+  otherKey: 'quotation_id'
 });
 
-
-// Relaciones Orders y Sells
 Orders.hasMany(Sells, {
   foreignKey: "order_id",
   sourceKey: "id",
@@ -126,16 +123,15 @@ Sells.belongsTo(Orders, {
 });
 
 Orders.belongsTo(PaymentMethods, {
-  foreignKey: "payment_method_id", // Cambia el nombre del foreignKey
+  foreignKey: "payment_method_id",
   targetKey: "id",
 });
 
 PaymentMethods.hasMany(Orders, {
-  foreignKey: "payment_method_id", // Asegúrate de que coincida con el foreignKey anterior
+  foreignKey: "payment_method_id",
   sourceKey: "id",
-})
+});
 
-// Define the relationship between Order and SalesFunnel
 Orders.belongsTo(SalesFunnel, {
   foreignKey: "sales_funnel_id",
   targetKey: "id",
@@ -146,7 +142,6 @@ SalesFunnel.hasMany(Orders, {
   sourceKey: "id",
 });
 
-// Define the relationship between Orders and Address
 Orders.belongsTo(Addresses, {
   foreignKey: "address_id",
   targetKey: "id",
@@ -157,54 +152,44 @@ Addresses.hasMany(Orders, {
   sourceKey: "id",
 });
 
-
-//Esquemas equipo 3
-const Categories = categoriesModel(sequelize, DataTypes);
-const Packages = packagesModel(sequelize, DataTypes);
-const Suppliers = suppliersModel(sequelize, DataTypes);
-const Statuses = statusesModel(sequelize, DataTypes);
-const BinLocations = binLocationsModel(sequelize, DataTypes);
-// Relación de productos con categorías
+// Associations Equipo 3
 Products.belongsTo(Categories, {
-  foreignKey: 'category_id', // La clave foránea en el modelo productos
-  targetKey: 'id',           // La clave primaria en el modelo categorías
+  foreignKey: 'category_id',
+  targetKey: 'id',
 });
 
 Categories.hasMany(Products, {
-  foreignKey: 'category_id',  // La clave foránea en el modelo productos
-  sourceKey: 'id',            // La clave primaria en el modelo categorías
+  foreignKey: 'category_id',
+  sourceKey: 'id',
 });
-// Cada paquete pertenece a un producto
+
 Packages.belongsTo(Products, {
   foreignKey: 'product_id',
   targetKey: 'id',
 });
+
 Suppliers.belongsTo(Products, {
   foreignKey: 'product_id',
   targetKey: 'id',
 });
-// Cada entrada de inventario pertenece a un producto
+
 Inventory.belongsTo(Products, {
   foreignKey: 'product_id',
   targetKey: 'id',
 });
 
-// Cada entrada de inventario puede tener un estado
 Inventory.belongsTo(Statuses, {
   foreignKey: 'status_id',
   targetKey: 'id',
 });
 
-// Cada entrada de inventario puede estar en una ubicación de bin
 Inventory.belongsTo(BinLocations, {
   foreignKey: 'bin_location_id',
   targetKey: 'id',
 });
 
-
-
 sequelize
-  .sync({ alter: true })
+  .sync({ alter: false })
   .then(() => {
     console.log("Database && tables was synchronized!");
   })
