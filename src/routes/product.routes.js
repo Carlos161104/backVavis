@@ -1,14 +1,17 @@
 const express = require("express");
-const router = express.Router()
-
+const router = express.Router();
 const {
-    createProducts
-} = require("../controllers/products.controller")
-
-router.use(express.json())
-
-
-// Método POST
-router.post('/', createProducts)
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
+} = require("../controllers/products.controller");
+router.use(express.json());
+router.post('/', createProduct);
+router.get('/', getProducts);
+router.get('/:id', getProductById);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
 
 module.exports = router;
