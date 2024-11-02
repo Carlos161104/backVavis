@@ -28,4 +28,11 @@ export const seedData = {
     { name: "Antigüedades y Colecciones" },
     { name: "Arte, Papelería y Mercería" },
   ],
+  paymentMethods: [
+    { name: "Efectivo" },
+    { name: "Transferencia" },
+    { name: "Tarjeta de crédito" },
+    { name: "Tarjeta de débito" },
+    { name: "Pagos diferidos" },
+  ],
 };
