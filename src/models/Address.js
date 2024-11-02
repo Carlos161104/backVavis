@@ -1,59 +1,60 @@
+import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
 export const Address = sequelize.define("addresses", {
   id: {
-    type: type.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
 
   country: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
   state: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
   city: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
   postal_code: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
   address_line_1: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
 
   address_line_2: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: true,
   },
 
   address_line_3: {
-    type: type.STRING(20),
+    type: DataTypes.STRING(20),
     allowNull: true,
   },
 
   comments: {
-    type: type.STRING(30),
+    type: DataTypes.STRING(30),
     allowNull: true,
   },
 
   channel_id: {
-    type: type.STRING(50),
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
 
   client_id: {
-    type: type.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
