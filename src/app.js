@@ -8,6 +8,7 @@ import clientsRoutes from "./routes/clients.routes.js";
 import guidesRoutes from "./routes/guides.routes.js";
 import inventoriesRoutes from "./routes/inventories.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
+import packagesRoutes from "./routes/packages.routes.js";
 
 // Middlewares
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use("/clients", clientsRoutes);
 app.use("/guides", guidesRoutes);
 app.use("/inventories", inventoriesRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/packages", packagesRoutes);
 
 // Export the app
 export default app;
