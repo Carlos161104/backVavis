@@ -35,4 +35,13 @@ export const seedData = {
     { name: "Tarjeta de débito" },
     { name: "Pagos diferidos" },
   ],
+  salesFunnel: [
+    { name: "Mercadolibre" },
+    { name: "Shopify" },
+    { name: "Facebook" },
+    { name: "Instagram" },
+    { name: "Marketplace Facebook" },
+    { name: "Marketplace Instagram" },
+    { name: "Venta directa" },
+  ],
 };

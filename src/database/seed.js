@@ -3,6 +3,7 @@ import { BinLocation } from "../models/BinLocation.js";
 import { Carrier } from "../models/Carrier.js";
 import { Category } from "../models/Category.js";
 import { PaymentMethod } from "../models/PaymentMethod.js";
+import { SaleFunnel } from "../models/SaleFunnel.js";
 import { seedData } from "../config/seedData.js";
 
 export const seedDatabase = async () => {
@@ -13,6 +14,7 @@ export const seedDatabase = async () => {
     await Carrier.bulkCreate(seedData.carriers);
     await Category.bulkCreate(seedData.categories);
     await PaymentMethod.bulkCreate(seedData.paymentMethods);
+    await SaleFunnel.bulkCreate(seedData.salesFunnel);
 
     console.log("Seed data inserted");
   } catch (error) {
