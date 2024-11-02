@@ -4,6 +4,7 @@ import { Carrier } from "../models/Carrier.js";
 import { Category } from "../models/Category.js";
 import { PaymentMethod } from "../models/PaymentMethod.js";
 import { SaleFunnel } from "../models/SaleFunnel.js";
+import { Status } from "../models/Status.js";
 import { seedData } from "../config/seedData.js";
 
 export const seedDatabase = async () => {
@@ -15,6 +16,7 @@ export const seedDatabase = async () => {
     await Category.bulkCreate(seedData.categories);
     await PaymentMethod.bulkCreate(seedData.paymentMethods);
     await SaleFunnel.bulkCreate(seedData.salesFunnel);
+    await Status.bulkCreate(seedData.status);
 
     console.log("Seed data inserted");
   } catch (error) {

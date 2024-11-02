@@ -44,4 +44,12 @@ export const seedData = {
     { name: "Marketplace Instagram" },
     { name: "Venta directa" },
   ],
+  status: [
+    { name: "En tránsito" },
+    { name: "En revisión" },
+    { name: "En reparación" },
+    { name: "Enviado" },
+    { name: "Listo para envío" },
+    { name: "Refacción" },
+  ],
 };
