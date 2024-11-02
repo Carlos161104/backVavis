@@ -3,6 +3,10 @@ import app from "./app.js";
 // Import sequelize
 import { sequelize } from "./database/database.js";
 
+// Import seeds
+import { seedDatabase } from "./database/seed.js";
+seedDatabase();
+
 // Main function
 async function main() {
   try {
