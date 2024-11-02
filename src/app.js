@@ -6,6 +6,7 @@ const app = express();
 import addressesRoutes from "./routes/addresses.routes.js";
 import clientsRoutes from "./routes/clients.routes.js";
 import guidesRoutes from "./routes/guides.routes.js";
+import inventoriesRoutes from "./routes/inventories.routes.js";
 
 // Middlewares
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/addresses", addressesRoutes);
 app.use("/clients", clientsRoutes);
 app.use("/guides", guidesRoutes);
+app.use("/inventories", inventoriesRoutes);
 
 // Export the app
 export default app;
