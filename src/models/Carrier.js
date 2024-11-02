@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-export const BinLocation = sequelize.define(
-  "bin_location",
+export const Carrier = sequelize.define(
+  "carriers",
   {
     id: {
       type: DataTypes.BIGINT,
@@ -10,12 +10,7 @@ export const BinLocation = sequelize.define(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
-    nombre: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
+      type: DataTypes.STRING(30),
     },
   },
   { timestamps: false }
