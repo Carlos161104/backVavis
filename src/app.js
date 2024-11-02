@@ -10,6 +10,7 @@ import inventoriesRoutes from "./routes/inventories.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
 import packagesRoutes from "./routes/packages.routes.js";
 import productRoutes from "./routes/products.routes.js";
+import quotationsRoutes from "./routes/quotations.routes.js";
 
 // Middlewares
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use("/inventories", inventoriesRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/packages", packagesRoutes);
 app.use("/products", productRoutes);
+app.use("/quotations", quotationsRoutes);
 
 // Export the app
 export default app;
