@@ -1,41 +1,76 @@
-const { Orders } = require("../database/db");
+import { Order } from "../models/Order.js";
 
-// Get all orders
-const getOrders = async (req, res) => {
+export const getOrders = async (req, res) => {
   try {
-    const orders = await Orders.findAll();
-    res.status(200).send(orders);
+    const orders = await Order.findAll();
+    res.json(orders);
   } catch (error) {
-    res.status(503).send({
-      status: "hay un problema",
-      message: error.message,
-    });
+    res.json({ error: error.message });
   }
 };
 
-// Create an order
-const createOrder = async (req, res) => {
+export const getOrder = async (req, res) => {
   try {
-    const { cost, payment_method_id, sales_funnel_id, client_id, address_id } =
-      req.body;
+    const { id } = req.params;
+    const order = await Order.findByPk(id);
 
-    const order = await Orders.create({
+    if (!order) {
+      return res.json({ error: "Order not found" });
+    }
+
+    return res.json(order);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+export const createOrder = async (req, res) => {
+  const { cost, payment_method_id, sales_funnel_id, client_id, address_id } =
+    req.body;
+
+  try {
+    const newOrder = await Order.create({
       cost,
       payment_method_id,
       sales_funnel_id,
       client_id,
       address_id,
     });
-    res.status(201).send(order);
+    res.json(newOrder);
   } catch (error) {
-    res.status(503).send({
-      status: "hay un problema",
-      message: error.message,
-    });
+    res.json({ error: error.message });
   }
 };
 
-module.exports = {
-  getOrders,
-  createOrder,
+export const updateOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findByPk(id);
+
+    if (!order) {
+      return res.json({ error: "Order not found" });
+    }
+
+    await order.set(req.body);
+    await order.save();
+    return res.json(order);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findByPk(id);
+
+    if (!order) {
+      return res.json({ error: "Order not found" });
+    }
+
+    await order.destroy();
+    return res.json({ message: "Order deleted successfully" });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
 };
