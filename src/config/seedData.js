@@ -20,4 +20,12 @@ export const seedData = {
     { name: "Enviacom - noventa9Minutos" },
     { name: "Enviacom - estafeta" },
   ],
+  categories: [
+    { name: "Accesorios para vehículos" },
+    { name: "Agro" },
+    { name: "Alimentos y Bebidas" },
+    { name: "Animales y Mascotas" },
+    { name: "Antigüedades y Colecciones" },
+    { name: "Arte, Papelería y Mercería" },
+  ],
 };
