@@ -35,6 +35,13 @@ export const Quotation = sequelize.define(
       //   key: "id",
       // },
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      // references: {
+      //   model: "users",
+      //   key: "id",
+      // },
+    },
   },
   {
     timestamps: false,
