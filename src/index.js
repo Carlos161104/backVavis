@@ -5,12 +5,16 @@ import { sequelize } from "./database/database.js";
 
 // Import seeds
 import { seedDatabase } from "./database/seed.js";
-seedDatabase();
+
+// Import relations
+import { applyAssociations } from "./database/associations.js";
 
 // Main function
 async function main() {
   try {
     await sequelize.sync({ force: false });
+    applyAssociations();
+    await seedDatabase();
     app.listen(3000, () => {
       console.log("Server running on port", 3000);
     });
