@@ -9,8 +9,16 @@ import { Address } from "../models/Address.js";
 // Team 2 Associations imports
 import { Quotation } from "../models/Quotation.js";
 import { User } from "../models/User.js";
-import { Product } from "../models/Product.js";
 import { QuotationProduct } from "../models/QuotationProduct.js";
+
+// Team 3 Associations imports
+import { Product } from "../models/Product.js";
+import { Category } from "../models/Category.js";
+import { Package } from "../models/Package.js";
+import { Supplier } from "../models/Supplier.js";
+import { Inventory } from "../models/Inventory.js";
+import { Status } from "../models/Status.js";
+import { BinLocation } from "../models/BinLocation.js";
 
 // Team 1 Relations
 
@@ -108,6 +116,45 @@ export const applyAssociations = () => {
       foreignKey: "user_id",
       targetKey: "id",
     });
+
+    // Team 3 Relations
+
+    Product.belongsTo(Category, {
+      foreignKey: "category_id",
+      targetKey: "id",
+    });
+
+    Category.hasMany(Product, {
+      foreignKey: "category_id",
+      sourceKey: "id",
+    });
+
+    Package.belongsTo(Product, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+
+    Supplier.belongsTo(Product, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+
+    Inventory.belongsTo(Product, {
+      foreignKey: "product_id",
+      targetKey: "id",
+    });
+
+    Inventory.belongsTo(Status, {
+      foreignKey: "status_id",
+      targetKey: "id",
+    });
+
+    Inventory.belongsTo(BinLocation, {
+      foreignKey: "bin_location_id",
+      targetKey: "id",
+    });
+
+    // Team 4 Associations
 
     console.log("Associations applied successfully");
   } catch (error) {
