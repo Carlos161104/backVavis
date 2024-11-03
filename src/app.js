@@ -2,6 +2,14 @@
 import express from "express";
 const app = express();
 
+// Initialize CORS
+import cors from "cors";
+var corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
 // Routes imports
 import addressesRoutes from "./routes/addresses.routes.js";
 import clientsRoutes from "./routes/clients.routes.js";
