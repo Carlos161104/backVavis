@@ -20,7 +20,10 @@ import { Inventory } from "../models/Inventory.js";
 import { Status } from "../models/Status.js";
 import { BinLocation } from "../models/BinLocation.js";
 
-// Team 1 Relations
+// Team 4 Associations imports
+import { Guide } from "../models/Guide.js";
+import { TrackInventory } from "../models/TrackInventory.js";
+import { Carrier } from "../models/Carrier.js";
 
 // Export function
 
@@ -155,6 +158,23 @@ export const applyAssociations = () => {
     });
 
     // Team 4 Associations
+
+    Guide.belongsToMany(Inventory, {
+      through: TrackInventory,
+      foreignKey: "guide_id",
+      otherKey: "inventory_id",
+    });
+
+    Inventory.belongsToMany(Guide, {
+      through: TrackInventory,
+      foreignKey: "inventory_id",
+      otherKey: "guide_id",
+    });
+
+    Guide.belongsTo(Carrier, {
+      foreignKey: "couriers",
+      targetKey: "id",
+    });
 
     console.log("Associations applied successfully");
   } catch (error) {
