@@ -10,6 +10,7 @@ import { Address } from "../models/Address.js";
 import { Quotation } from "../models/Quotation.js";
 import { User } from "../models/User.js";
 import { Product } from "../models/Product.js";
+import { QuotationProduct } from "../models/QuotationProduct.js";
 
 // Team 1 Relations
 
@@ -65,6 +66,47 @@ export const applyAssociations = () => {
     Client.hasMany(Order, {
       foreignKey: "client_id",
       sourceKey: "id",
+    });
+
+    // Team 2 Relations
+    Quotation.hasMany(QuotationProduct, {
+      foreignKey: "quotation_id",
+      sourceKey: "id",
+    });
+
+    QuotationProduct.belongsTo(Quotation, {
+      foreignKey: "quotation_id",
+      targetKey: "id",
+    });
+
+    PaymentMethod.hasMany(Quotation, {
+      foreignKey: "payment_method_id",
+      sourceKey: "id",
+    });
+
+    Quotation.belongsTo(PaymentMethod, {
+      foreignKey: "payment_method_id",
+      targetKey: "id",
+    });
+
+    Client.hasMany(Quotation, {
+      foreignKey: "client_id",
+      sourceKey: "id",
+    });
+
+    Quotation.belongsTo(Client, {
+      foreignKey: "client_id",
+      targetKey: "id",
+    });
+
+    User.hasMany(Quotation, {
+      foreignKey: "user_id",
+      sourceKey: "id",
+    });
+
+    Quotation.belongsTo(User, {
+      foreignKey: "user_id",
+      targetKey: "id",
     });
 
     console.log("Associations applied successfully");
