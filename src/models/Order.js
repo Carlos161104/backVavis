@@ -32,6 +32,10 @@ export const Order = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
+    order_pdf: {
+      type: DataTypes.STRING,
+    },
   },
   { timestamps: false }
 );
