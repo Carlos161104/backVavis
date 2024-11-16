@@ -3,18 +3,15 @@ import app from "./app.js";
 // Import sequelize
 import { sequelize } from "./database/database.js";
 
-// Import seeds
-import { seedDatabase } from "./database/seed.js";
-
 // Import relations
 import { applyAssociations } from "./database/associations.js";
 
 // Main function
 async function main() {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: false, alter: true });
     applyAssociations();
-    await seedDatabase();
+    // await seedDatabase(); // Comentar o eliminar esta línea
     app.listen(3000, () => {
       console.log("Server running on port", 3000);
     });
